@@ -1,0 +1,38 @@
+<html>
+<head>
+	<title>HTML5 Course</title>
+	<script src="https://code.createjs.com/createjs-2015.05.21.min.js"></script>
+</head>
+<body onload="init();">
+  <script>
+  var queue = new createjs.LoadQueue();
+
+  function init() {
+  	
+  queue.on("progress", handleFileProgress);
+  queue.on("fileload", handleFileLoad);
+ 	queue.on("complete", handleComplete, this);
+    queue.loadManifest([
+     {id: "myImage", src:"./assets/1.jpg"},
+     {id: "myImage2", src:"./assets/2.jpg"},
+     {id: "myImage3", src:"./assets/3.png"}
+ ]);
+  }
+
+  function handleFileProgress(event)
+  {
+     console.log("Progress: "+queue.progress*100 + " %");
+  }
+  
+  function handleFileLoad(event)
+  {
+     var image = queue.getResult(event.item.id);
+     document.body.appendChild(image);
+  }
+
+  function handleComplete(event) {
+    console.log("Loading Completed");
+ }
+	</script>
+</body>
+</html>
